@@ -34,5 +34,7 @@ I recommend only having 3 cards in your deck.
 
 Just replace '7' with the number of cards in your deck. 
 
+*ALSO VERY IMPORTANT* Please only put aoe hits in your deck (no enchants or anything else)
+
 
 Thanks and Have FUN!
