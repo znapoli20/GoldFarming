@@ -11,7 +11,6 @@ void SimulateMouseClick();
 void PC(int x, int y);
 void b_Move(double time, char direction);
 void InitializeShit();
-bool CheckKey();
 // </Prototype Functions>
 
 // <Global Variables>
@@ -30,21 +29,23 @@ int main()
 {
 	InitializeShit();
 
+	Sleep(3000);
+
+	////system("pause");
+
 	// <Main Loop>
-	while (!GetKeyState(VK_SHIFT) & 0x8000) // While shift is not pressed down
+	while (!GetKeyState('A') & 0x8000) // While the a key is not pressed down
 	{
+
+		//system("pause");
 
 		b_Move(1.5, 'W');
 		
-		if (CheckKey()) {
-			break;
-		}
+		//system("pause");
 
 		b_Move(1.5, 'S');
 
-		if (CheckKey()) {
-			break;
-		}
+		//system("pause");
 
 		if (NumCards <= 3) {
 			PC((Res_Horizontal / 2), (Res_Vertical / 2));
@@ -56,13 +57,11 @@ int main()
 			for (int z = (Res_Horizontal / 8); z <= ((Res_Horizontal) - (Res_Horizontal / 8)); z += 100)
 			{
 				PC(z, (Res_Vertical / 2));
-				if (CheckKey()) {
-					break;
-				}
 			}
 
 		}
 
+		Sleep(2000);
 
 	}
 	// </Main Loop>
@@ -98,26 +97,27 @@ void PC(int x, int y) {
 
 void b_Move(double time, char direction) {
 
-	int move_d;
+	if (direction == 'W') {
 
-	switch (direction)
+		keybd_event(KEYEVENT_KEY_W, 0, 0, 0);
+
+		Sleep(time * 1000);
+
+		keybd_event(KEYEVENT_KEY_W, 0, KEYEVENTF_KEYUP, 0);
+
+	}
+	else
 	{
-	case 'W':
-		move_d = KEYEVENT_KEY_W;
-	case 'S':
-		move_d = KEYEVENT_KEY_S;
-	default:
-		abort();
+		
+		keybd_event(KEYEVENT_KEY_S, 0, 0, 0);
+
+		Sleep(time * 1000);
+
+		keybd_event(KEYEVENT_KEY_S, 0, KEYEVENTF_KEYUP, 0);
+
 	}
 
-	keybd_event(move_d, 0, 0, 0);
-
-	for (int i = 0; i <= time; i++)
-	{
-		Sleep(1000);
-	}
-
-	keybd_event(move_d, 0, KEYEVENTF_KEYUP, 0);
+	
 
 }
 
@@ -125,12 +125,6 @@ void InitializeShit() {
 
 	// <Get Settings>
 	ifstream Settings("Settings.txt");
-
-	if (!Settings.is_open())
-	{
-		cout << "It seems there is an error, please make sure that \'Settings.txt\' exists" << endl;
-		abort();
-	}
 
 	char h;
 
@@ -149,21 +143,9 @@ void InitializeShit() {
 	{
 
 		cout << "Your resolution is invalid" << endl;
+		cout << "Your x is " << Res_Horizontal << " and your y is " << Res_Vertical << endl;
 		cin >> h;
 		abort();
-	}
-
-}
-
-bool CheckKey() {
-
-	if (!GetKeyState(VK_SHIFT) & 0x8000)
-	{
-		return false; // If it is not pressed down return false
-	}
-	else
-	{
-		return true;
 	}
 
 }
