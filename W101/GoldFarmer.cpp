@@ -31,10 +31,12 @@ int main()
 
 	Sleep(3000);
 
+	HWND hWND = FindWindowA(0, ("Wizard101"));
+
 	////system("pause");
 
 	// <Main Loop>
-	while (true) 
+	while (hWND) // While the program is open
 	{
 
 		//system("pause");
