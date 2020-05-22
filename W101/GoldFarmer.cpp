@@ -9,8 +9,9 @@
 // <Prototype Functions>
 void SimulateMouseClick();
 void PC(int x, int y);
-void b_Move(int time, char direction);
+void b_Move(double time, char direction);
 void InitializeShit();
+bool CheckKey();
 // </Prototype Functions>
 
 // <Global Variables>
@@ -34,7 +35,16 @@ int main()
 	{
 
 		b_Move(1.5, 'W');
+		
+		if (CheckKey()) {
+			break;
+		}
+
 		b_Move(1.5, 'S');
+
+		if (CheckKey()) {
+			break;
+		}
 
 		if (NumCards <= 3) {
 			PC((Res_Horizontal / 2), (Res_Vertical / 2));
@@ -43,9 +53,12 @@ int main()
 		}
 		else
 		{
-			for (int z = (Res_Horizontal / 8); z <= ((Res_Horizontal) - (Res_Horizontal / 8)); z++)
+			for (int z = (Res_Horizontal / 8); z <= ((Res_Horizontal) - (Res_Horizontal / 8)); z += 100)
 			{
 				PC(z, (Res_Vertical / 2));
+				if (CheckKey()) {
+					break;
+				}
 			}
 
 		}
@@ -54,6 +67,7 @@ int main()
 	}
 	// </Main Loop>
 
+	return 0;
 }
 
 void SimulateMouseClick() {
@@ -82,7 +96,7 @@ void PC(int x, int y) {
 
 }
 
-void b_Move(int time, char direction) {
+void b_Move(double time, char direction) {
 
 	int move_d;
 
@@ -137,6 +151,19 @@ void InitializeShit() {
 		cout << "Your resolution is invalid" << endl;
 		cin >> h;
 		abort();
+	}
+
+}
+
+bool CheckKey() {
+
+	if (!GetKeyState(VK_SHIFT) & 0x8000)
+	{
+		return false; // If it is not pressed down return false
+	}
+	else
+	{
+		return true;
 	}
 
 }
