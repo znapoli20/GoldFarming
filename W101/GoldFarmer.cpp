@@ -34,7 +34,7 @@ int main()
 	////system("pause");
 
 	// <Main Loop>
-	while (!GetKeyState('A') & 0x8000) // While the a key is not pressed down
+	while (true) 
 	{
 
 		//system("pause");
