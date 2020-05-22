@@ -24,6 +24,8 @@ For example, I usually play with the resolution 1368 x 766.
 
 Thus I would put '1368 x 766' where '0 x 0' is. 
 
+*PLEASE NOTE* there is a space between the numbers and the 'x', THESE ARE VERY IMPORTANT!!!
+
 The second line is just the number '7'. 
 
 This line indicates the number of cards in your deck. 
